@@ -93,7 +93,7 @@ Feature: Run commands with Aruba
     When I successfully run `cucumber`
     Then the features should all pass
 
-  @requires-python
+  @requires-python @unsupported-on-platform-windows
   Scenario: Python Program
     Given an executable named "bin/aruba-test-cli" with:
     """python
@@ -133,7 +133,7 @@ Feature: Run commands with Aruba
     When I successfully run `cucumber`
     Then the features should all pass
 
-  @requires-perl
+  @requires-perl @unsupported-on-platform-windows
   Scenario: Perl Program
     Given an executable named "bin/aruba-test-cli" with:
     """perl
