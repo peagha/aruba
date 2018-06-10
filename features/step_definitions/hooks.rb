@@ -60,6 +60,16 @@ Before '@requires-bash' do |scenario|
   end
 end
 
+Before '@requires-sleep' do |scenario|
+  next unless Aruba.platform.which('sleep').nil?
+
+  if Cucumber::VERSION < '2'
+    scenario.skip_invoke!
+  else
+    skip_this_scenario
+  end
+end
+
 Before '@requires-posix-standard-tools' do |scenario|
   next unless Aruba.platform.which('printf').nil?
 
