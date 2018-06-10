@@ -1,4 +1,4 @@
-@requires-env
+@unsupported-on-platform-unix @unsupported-on-platform-mac
 Feature: Disable Bundler environment
   Use the @disable-bundler tag to escape from your project's Gemfile.
 
@@ -12,7 +12,7 @@ Feature: Disable Bundler environment
     Feature: My Feature
       @disable-bundler
       Scenario: Check environment
-        When I run `env`
+        When I run `set`
         Then the output should not match /^BUNDLE_GEMFILE=/
     """
     When I run `cucumber`
