@@ -1,4 +1,4 @@
-@requires-env @unsupported-on-platform-windows
+@unsupported-on-platform-unix @unsupported-on-platform-mac
 Feature: Define default process environment
   Say you want to have a default set of environment variables, then use this
   code.
@@ -28,7 +28,7 @@ Feature: Define default process environment
     end
 
     RSpec.describe 'Environment command', :type => :aruba do
-      before(:each) { run_command('env') }
+      before(:each) { run_command('set') }
       before(:each) { stop_all_commands }
 
       it { expect(last_command_started.output).to include 'LONG_LONG_VARIABLE=x' }
@@ -51,7 +51,7 @@ Feature: Define default process environment
     RSpec.describe 'Environment command', :type => :aruba do
       before(:each) { set_environment_variable 'LONG_LONG_VARIABLE', 'z' }
 
-      before(:each) { run_command('env') }
+      before(:each) { run_command('set') }
       before(:each) { stop_all_commands }
 
       it { expect(last_command_started.output).to include 'LONG_LONG_VARIABLE=z' }
@@ -74,7 +74,7 @@ Feature: Define default process environment
     RSpec.describe 'Environment command', :type => :aruba do
       before(:each) { append_environment_variable 'LONG_LONG_VARIABLE', 'z' }
 
-      before(:each) { run_command('env') }
+      before(:each) { run_command('set') }
       before(:each) { stop_all_commands }
 
       it { expect(last_command_started.output).to include 'LONG_LONG_VARIABLE=xz' }
@@ -97,7 +97,7 @@ Feature: Define default process environment
     RSpec.describe 'Environment command', :type => :aruba do
       before(:each) { prepend_environment_variable 'LONG_LONG_VARIABLE', 'z' }
 
-      before(:each) { run_command('env') }
+      before(:each) { run_command('set') }
       before(:each) { stop_all_commands }
 
       it { expect(last_command_started.output).to include 'LONG_LONG_VARIABLE=zx' }
@@ -120,7 +120,7 @@ Feature: Define default process environment
     RSpec.describe 'Environment command', :type => :aruba do
       before(:each) { delete_environment_variable 'LONG_LONG_VARIABLE' }
 
-      before(:each) { run_command('env') }
+      before(:each) { run_command('set') }
       before(:each) { stop_all_commands }
 
       it { expect(last_command_started.output).not_to include 'LONG_LONG_VARIABLE' }
