@@ -50,6 +50,16 @@ Before '@requires-ruby' do |scenario|
   end
 end
 
+Before '@requires-bash' do |scenario|
+  next unless Aruba.platform.which('bash').nil?
+
+  if Cucumber::VERSION < '2'
+    scenario.skip_invoke!
+  else
+    skip_this_scenario
+  end
+end
+
 Before '@requires-posix-standard-tools' do |scenario|
   next unless Aruba.platform.which('printf').nil?
 
