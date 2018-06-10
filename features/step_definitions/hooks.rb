@@ -80,6 +80,16 @@ Before '@requires-env' do |scenario|
   end
 end
 
+Before '@requires-cat' do |scenario|
+  next unless Aruba.platform.which('cat').nil?
+
+  if Cucumber::VERSION < '2'
+    scenario.skip_invoke!
+  else
+    skip_this_scenario
+  end
+end
+
 Before '@requires-posix-standard-tools' do |scenario|
   next unless Aruba.platform.which('printf').nil?
 
