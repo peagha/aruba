@@ -50,13 +50,15 @@ describe Aruba::Api do
   end
 
   describe "#set_environment_variable" do
+    let(:get_env_cmd) { FFI::Platform.windows? ? 'set' : 'env' }
+
     after(:each) do
       @aruba.all_commands.each(&:stop)
     end
 
     it "set environment variable" do
       @aruba.set_environment_variable 'LONG_LONG_ENV_VARIABLE', 'true'
-      @aruba.run_command_and_stop "env"
+      @aruba.run_command_and_stop get_env_cmd
       expect(@aruba.last_command_started.output)
         .to include("LONG_LONG_ENV_VARIABLE=true")
     end
@@ -64,7 +66,7 @@ describe Aruba::Api do
     it "overwrites environment variable" do
       @aruba.set_environment_variable 'LONG_LONG_ENV_VARIABLE', 'true'
       @aruba.set_environment_variable 'LONG_LONG_ENV_VARIABLE', 'false'
-      @aruba.run_command_and_stop "env"
+      @aruba.run_command_and_stop get_env_cmd
       expect(@aruba.last_command_started.output)
         .to include("LONG_LONG_ENV_VARIABLE=false")
     end
