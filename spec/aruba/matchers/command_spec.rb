@@ -12,7 +12,7 @@ RSpec.describe 'Command Matchers' do
   end
 
   describe '#to_have_exit_status' do
-    let(:cmd) { 'true' }
+    let(:cmd) { 'exit 0' }
 
     before(:each) { run_command(cmd) }
 
@@ -20,14 +20,14 @@ RSpec.describe 'Command Matchers' do
       it { expect(last_command_started).to have_exit_status 0 }
     end
 
-    context 'when has exit 0' do
-      let(:cmd) { 'false' }
+    context 'when does not have exit 0' do
+      let(:cmd) { 'exit 1' }
       it { expect(last_command_started).not_to have_exit_status 0 }
     end
   end
 
   describe '#to_be_successfully_executed_' do
-    let(:cmd) { 'true' }
+    let(:cmd) { 'exit 0' }
 
     before(:each) { run_command(cmd) }
 
@@ -35,8 +35,8 @@ RSpec.describe 'Command Matchers' do
       it { expect(last_command_started).to be_successfully_executed }
     end
 
-    context 'when has exit 0' do
-      let(:cmd) { 'false' }
+    context 'when does not have exit 0' do
+      let(:cmd) { 'exit 1' }
       it { expect(last_command_started).not_to be_successfully_executed }
     end
   end
