@@ -98,9 +98,9 @@ Feature: Running shell commands
     Given a file named "features/shell.feature" with:
     """
     Feature: Running scripts
-      Scenario: Running ruby commands
+      Scenario: Running python commands
         When I run the following commands with `python`:
-        \"\"\"ruby
+        \"\"\"python
         print("Hello, Aruba!")
         \"\"\"
         Then the output should contain exactly "Hello, Aruba!"
